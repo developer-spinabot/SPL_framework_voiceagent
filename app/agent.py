@@ -4,6 +4,10 @@ from langchain_community.vectorstores import Chroma
 import os
 
 from app.config import CHROMA_DB_PATH, PHI2_MODEL_PATH, LLAMA3B_MODEL_PATH
+from app.spl_engine import SPLEngine
+
+# Initialize SPL Engine
+spl_engine = SPLEngine()
 
 # Load the LLM model (using LlamaCpp for GGUF)
 # Ensure you have either phi-2.gguf or llama-3b.gguf in the models/ directory
@@ -47,6 +51,14 @@ def get_rag_response(query: str) -> str:
     if llm is None or retriever is None:
         return "RAG system not initialized. Cannot generate context-aware reply."
     try:
+        # =========================
+        # SPL Decision Engine (Phase 1)
+        # =========================
+        spl_result = spl_engine.decide(query)
+        if spl_result.handled:
+            print(f"[SPL] Handled at layer {spl_result.layer}: {spl_result.reason}")
+            return spl_result.response
+
         docs = retriever.invoke(query)
 
         context = "\n\n".join([d.page_content for d in docs])

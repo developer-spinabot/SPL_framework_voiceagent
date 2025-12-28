@@ -54,8 +54,7 @@ Reservation details:
 If the customer wants to book a table, collect:
 - Name  
 - Date  
-- Time  
-- Number of guests  
+- Time   Number of guests  
 - Contact phone number  
 
 ---

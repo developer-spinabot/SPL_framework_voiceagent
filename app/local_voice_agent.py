@@ -8,7 +8,7 @@ import re
 import time
 from app.stt_streaming import StreamingSTT
 from app.stt import transcribe_audio
-from app.agent import get_rag_response
+from app.agent import get_rag_response, spl_engine
 from app.tts import synthesize_speech
 
 # =========================
@@ -122,10 +122,19 @@ def run_agent_loop():
                 continue
 
             # =========================
-            # 3. LLM + RAG
+            # 3. LLM + RAG with SPL
             # =========================
             llm_start = time.perf_counter()
-            reply = get_rag_response(text)
+            
+            # First check with SPL engine
+            spl_result = spl_engine.decide(text)
+            if spl_result.handled:
+                print(f"[SPL] Handled at layer {spl_result.layer}: {spl_result.reason}")
+                reply = spl_result.response
+            else:
+                # Only call RAG if SPL doesn't handle it
+                reply = get_rag_response(text)
+                
             llm_time = time.perf_counter() - llm_start
 
             print("\n🤖 LLM RAW OUTPUT repr():", repr(reply))
