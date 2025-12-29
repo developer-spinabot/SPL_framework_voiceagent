@@ -1,30 +1,90 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-.venv/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv
 venv/
-env/
+ENV/
 
-# Models & Data
-models/
-embeddings/
-audio_output/
-audio_uploads/
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
 logs/
-
-# System
-.DS_Store
 *.log
 
-# IDE/editor
-.vscode/
+# IDE specific files
 .idea/
+.vscode/
+*.swp
+*.swo
+*~
 
-# Executables
-ngrok.exe
+# System Files
+.DS_Store
+Thumbs.db
 
-# Env files
-.env
-.env.* 
+# Local development
+*.sqlite3
+*.db
+
+# Local audio files
+*.wav
+*.mp3
+*.ogg
+
+# Model files (large binary files)
+*.bin
+*.gguf
+*.pth
+*.pt
+*.h5
+
+# Chroma DB
+chroma_db/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Project specific
+app/audio_output/*.wav
+!app/audio_output/.gitkeep
+
+# Local development settings
+local_settings.py
+
+# Temp files
+*.tmp
+*.bak
+*~
+
+# Project specific ignores
+*.wav
+*.mp3
+*.ogg
+
+# Build and package
+target/
+build/
+dist/
