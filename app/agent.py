@@ -51,14 +51,7 @@ def get_rag_response(query: str) -> str:
     if llm is None or retriever is None:
         return "RAG system not initialized. Cannot generate context-aware reply."
     try:
-        # =========================
-        # SPL Decision Engine (Phase 1)
-        # =========================
-        spl_result = spl_engine.decide(query)
-        if spl_result.handled:
-            print(f"[SPL] Handled at layer {spl_result.layer}: {spl_result.reason}")
-            return spl_result.response
-
+        # Get relevant documents from the retriever
         docs = retriever.invoke(query)
 
         context = "\n\n".join([d.page_content for d in docs])

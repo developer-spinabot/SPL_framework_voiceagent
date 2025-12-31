@@ -40,9 +40,15 @@ class SPLEngine:
         # ===== Layer 1 =====
         self.patterns = [
             {
-                "name": "opening_hours",
-                "regex": r"(what time|when).*(open|close)|\b(open|opening|close|closing)\b.*(time|hours?)",
-                "response": "We're open daily from 11:00 AM to 10:30 PM.",
+                "name": "opening_time",
+                "regex": r"(what (time|hours?)|when).*(open|opening|start|begin)|(open|opening|start).*(time|hours?)|(what are|what're|what's|whats).*(opening|open).*(hours?|time)",
+                "response": "We open daily at 11:00 AM.",
+                "confidence": 0.95,
+            },
+            {
+                "name": "closing_time",
+                "regex": r"(what (time|hours?)|when).*(close|closing|end|last order)|(close|closing|last order).*(time|hours?)|(what are|what're|what's|whats).*(closing|close).*(hours?|time)|(when is).*(last order|kitchen close)",
+                "response": "We close daily at 10:30 PM, with last orders at 10:00 PM.",
                 "confidence": 0.95,
             },
             {
